@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>
+            Public Transportation and Mobility in Malaysia
+        </title>
+
+        <link rel="stylesheet" href="css/styles.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>
+                Can Malaysians Get Around Efficiently?
+            </h1>
+            <p class="subtitle">
+                A data story on Malaysia's car dependence, public transport, and congestion (2022-2025)
+            </p>
+        </header>
+
+        <main>
+            <section>
+                <h2>Car Ownership by State</h2>
+                <figure id="chart1"></figure>
+            </section>
+
+            <section>
+                <h2>Public Transport Network Coverage (MRT, LRT, BRT)</h2>
+                <figure id="chart2"></figure>
+            </section>
+
+            <section>
+                <h2>Traffic Congestion Hotspots</h2>
+                <figure id=""chart3></figure>
+            </section>
+
+            <section>
+                <h2>Public Transport Ridership Trends</h2>
+                <figure id="chart4"></figure>
+            </section>
+
+            <section>
+                <h2>Do More Cars Mean More Congestion?</h2>
+                <figure id="chart5"></figure>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                Created by <strong>Ching Hui Qi</strong> on 23 October 2025. 
+            </p>
+        </footer>
+
+        <script>
+            const specs = [
+                ["#chart1", "specs/"],
+                ["#chart2", "specs/"],
+                ["#chart3", "specs/"],
+                ["#chart4", "specs/"],
+                ["#chart5", "specs/"]
+            ];
+            specs.forEach(([sel, url]) =>
+                vegaEmbed(sel, url, { actions: false }).catch(console.error)    
+            );
+        </script>
+    </body>
+</html>
