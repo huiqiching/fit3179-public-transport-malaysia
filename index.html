@@ -2,56 +2,48 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>
             Public Transportation and Mobility in Malaysia
         </title>
 
         <link rel="stylesheet" href="css/styles.css">
 
-        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega@6.2.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.0.2"></script>
+
+        <style media="screen">
+            .vega-actions a {
+                margin-right: 5px;
+            }
+        </style>
     </head>
 
     <body>
-        <header>
-            <h1>
-                Can Malaysians Get Around Efficiently?
-            </h1>
-            <p class="subtitle">
-                A data story on Malaysia's car dependence, public transport, and congestion (2022-2025)
-            </p>
-        </header>
+        <h1>
+            Can Malaysians Get Around Efficiently?
+        </h1>
+        <p class="subtitle">
+            A data story on Malaysia's car dependence, public transport, and congestion (2022-2025)
+        </p>
 
-        <main>
-            <section>
-                <h2>Car Ownership by State</h2>
-                <figure id="chart1"></figure>
-            </section>
+        <!-- Continers for each visualisation-->
+         <h2>Car Ownership by State</h2>
+         <div id="chart1"></div>
 
-            <section>
-                <h2>Public Transport Network Coverage (MRT, LRT, BRT)</h2>
-                <figure id="chart2"></figure>
-            </section>
+         <h2>Public Transport Network Coverage</h2>
+         <div id="chart2"></div>
 
-            <section>
-                <h2>Traffic Congestion Hotspots</h2>
-                <figure id=""chart3></figure>
-            </section>
+         <h2>Traffic Congestion Hotspots</h2>
+         <div id="chart3"></div>
 
-            <section>
-                <h2>Public Transport Ridership Trends</h2>
-                <figure id="chart4"></figure>
-            </section>
+         <h2>Ridership Trends</h2>
+         <div id="chart4"></div>
 
-            <section>
-                <h2>Do More Cars Mean More Congestion?</h2>
-                <figure id="chart5"></figure>
-            </section>
-        </main>
+         <h2>Do More Cars Mean More Congestion?</h2>
+         <div id="chart5"></div>
 
-        <footer>
+         <footer>
             <p>
                 Created by <strong>Ching Hui Qi</strong> on 23 October 2025. 
             </p>
@@ -65,9 +57,10 @@
                 ["#chart4", "specs/"],
                 ["#chart5", "specs/"]
             ];
-            specs.forEach(([sel, url]) =>
-                vegaEmbed(sel, url, { actions: false }).catch(console.error)    
-            );
+            specs.forEach(([sel, path]) => {
+                vegaEmbed(sel, path, { actions: false })
+                .catch(err => console.error("Error embedding ${path}:", err)); 
+            });
         </script>
     </body>
 </html>
