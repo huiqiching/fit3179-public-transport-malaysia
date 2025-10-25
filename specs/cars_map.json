@@ -1,0 +1,48 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 520,
+  "projection": {"type": "mercator"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/jnewbery/CartogramMalaysia/master/public/data/malaysia-states.topojson",
+    "format": {"type": "topojson", "feature": "states"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.Name",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/cars_2025_totals.csv"
+        },
+        "key": "state",
+        "fields": ["vehicles_total","state"]
+      }
+    }
+  ],
+  "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.5},
+  "encoding": {
+    "color": {
+      "field": "vehicles_total",
+      "type": "quantitative",
+      "title": "Total registered vehicles",
+      "scale": {"scheme": "blues"}
+    },
+    "tooltip": [
+      {"field": "properties.Name", "title": "State"},
+      {"field": "vehicles_total", "title": "Vehicles", "format": ","}
+    ]
+  },
+  "config": {
+    "font": "Inter, Segoe UI, Arial, sans-serif",
+    "title": {
+    "font": "'Times New Roman', serif",
+    "fontSize": 22,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "color": "#1e1e1e"
+  },
+    "axis": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"},
+    "legend": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"}
+  },
+  "title": "Car Ownership by State (2025)"
+}
