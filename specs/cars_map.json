@@ -3,23 +3,37 @@
   "width": 900,
   "height": 520,
   "projection": {"type": "mercator"},
+
+  "params": [
+    {
+      "name": "Year",
+      "value": 2025,
+      "bind": {"input": "range", "min": 2022, "max": 2025, "step": 1}
+    }
+  ],
+
   "data": {
     "url": "https://raw.githubusercontent.com/jnewbery/CartogramMalaysia/master/public/data/malaysia-states.topojson",
     "format": {"type": "topojson", "feature": "states"}
   },
+
   "transform": [
     {
       "lookup": "properties.Name",
       "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/cars_2025_totals.csv"
-        },
+        "data": { "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/cars_totals.csv" },
         "key": "state",
-        "fields": ["vehicles_total","state"]
-      }
-    }
+        "fields": ["2022","2023","2024","2025"]
+      },
+      "as": ["y2022","y2023","y2024","y2025"]
+    },
+    { "fold": ["y2022","y2023","y2024","y2025"], "as": ["year_key","vehicles_total"] },
+    { "calculate": "toNumber(replace(datum.year_key,'y',''))", "as": "year" },
+    { "filter": "datum.year == Year" }
   ],
+
   "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.5},
+
   "encoding": {
     "color": {
       "field": "vehicles_total",
@@ -29,20 +43,23 @@
     },
     "tooltip": [
       {"field": "properties.Name", "title": "State"},
+      {"field": "year", "title": "Year"},
       {"field": "vehicles_total", "title": "Vehicles", "format": ","}
     ]
   },
+
   "config": {
     "font": "Inter, Segoe UI, Arial, sans-serif",
     "title": {
-    "font": "'Times New Roman', serif",
-    "fontSize": 22,
-    "fontWeight": "bold",
-    "anchor": "middle",
-    "color": "#1e1e1e"
-  },
+      "font": "'Times New Roman', serif",
+      "fontSize": 22,
+      "fontWeight": "bold",
+      "anchor": "start",
+      "color": "#1e1e1e"
+    },
     "axis": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"},
     "legend": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"}
   },
-  "title": "Car Ownership by State (2025)"
+
+  "title": {"text": "Car Ownership by State (2022-2025)", "subtitle": "Use the slider to change year!"}
 }
