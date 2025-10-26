@@ -38,11 +38,11 @@ h2 {
 }
 
 #chart1, #chart2, #chart3, #chart4 {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     margin: auto;
-    width: 95vw;
+    width: min(1100px, 92vw);
     max-width: 1100px;
     overflow-x: hidden;
 }
