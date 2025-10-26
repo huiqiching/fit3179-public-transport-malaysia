@@ -1,12 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 
+  "background": null,
+  
   "hconcat": [
 
     {
       "width": 540,
       "height": 520,
       "background": null,
+      "autosize": { "type": "fit", "contains": "padding" },
       "config": {"view": {"stroke": null}},
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
@@ -74,6 +77,7 @@
       "width": 540,
       "height": 520,
       "background": null,
+      "autosize": { "type": "fit", "contains": "padding" },
       "config": {"view": {"stroke": null}},
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
