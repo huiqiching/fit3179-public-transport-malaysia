@@ -1,0 +1,163 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "hconcat": [
+
+    {
+      "width": 440,
+      "height": 360,
+      "data": {
+        "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
+        "format": { "type": "csv" }
+      },
+      "transform": [
+        { "calculate": "replace(datum.city, /^\\s+|\\s+$/g, '')", "as": "city_clean" },
+        {
+          "lookup": "city_clean",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/travel_times_rush_hour.csv",
+              "format": { "type": "csv" }
+            },
+            "key": "city",
+            "fields": ["optimal_travel_time","rush_hour_travel"]
+          }
+        },
+        { "calculate": "toNumber(datum.rush_hour_travel)", "as": "rush" },
+        { "calculate": "toNumber(datum.optimal_travel_time)", "as": "opt" },
+        { "calculate": "datum.rush - datum.opt", "as": "gap" },
+        { "filter": "isFinite(datum.rush) && isFinite(datum.opt)" },
+        { "window": [ { "op": "rank", "as": "rk" } ], "sort": [ { "field": "gap", "order": "descending" } ] },
+        { "filter": "datum.rk <= 10" }
+      ],
+      "encoding": {
+        "y": {
+          "field": "city_clean",
+          "type": "ordinal",
+          "sort": { "field": "gap", "order": "descending" },
+          "title": null
+        },
+        "x": {
+          "type": "quantitative",
+          "scale": { "zero": false, "nice": true },
+          "axis": { "title": "Optimal — Rush", "orient": "bottom" }
+        }
+      },
+      "layer": [
+        {
+          "mark": { "type": "rule", "stroke": "#aaa" },
+          "encoding": {
+            "x": { "field": "opt" },
+            "x2": { "field": "rush" },
+            "tooltip": [
+              { "field": "city_clean", "title": "City" },
+              { "field": "opt", "title": "Optimal (min)" },
+              { "field": "rush", "title": "Rush (min)" },
+              { "field": "gap", "title": "Gap (min)" }
+            ]
+          }
+        },
+        { "mark": { "type": "point", "filled": true, "size": 60, "color": "#1f77b4" }, "encoding": { "x": { "field": "opt" } } },
+        { "mark": { "type": "point", "filled": true, "size": 60, "color": "#d62728" }, "encoding": { "x": { "field": "rush" } } }
+      ],
+      "title": {
+        "text": "Top Cities with Largest Commute Gaps",
+        "anchor": "start",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      }
+    },
+
+    {
+      "width": 460,
+      "height": 360,
+      "data": {
+        "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
+        "format": { "type": "csv" }
+      },
+      "transform": [
+        { "calculate": "replace(datum.city, /^\\s+|\\s+$/g, '')", "as": "city_clean" },
+        {
+          "lookup": "city_clean",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/travel_times_rush_hour.csv",
+              "format": { "type": "csv" }
+            },
+            "key": "city",
+            "fields": ["optimal_travel_time","rush_hour_travel"]
+          }
+        },
+        { "calculate": "toNumber(datum.avg_travel_time_per_10km_min)", "as": "mins_per_10km" },
+        { "calculate": "toNumber(datum.rush_hour_travel)", "as": "rush" },
+        { "calculate": "toNumber(datum.optimal_travel_time)", "as": "opt" },
+        { "calculate": "datum.rush - datum.opt", "as": "inefficiency" },
+        { "filter": "isFinite(datum.mins_per_10km) && isFinite(datum.rush) && isFinite(datum.opt)" }
+      ],
+      "layer": [
+        {
+          "mark": { "type": "point", "filled": true, "opacity": 0.9 },
+          "encoding": {
+            "x": {
+              "field": "mins_per_10km",
+              "type": "quantitative",
+              "title": "Avg minutes per 10 km",
+              "scale": { "zero": false, "nice": true }
+            },
+            "y": {
+              "field": "rush",
+              "type": "quantitative",
+              "title": "Daily round-trip during rush hour (min)",
+              "scale": { "zero": false, "nice": true }
+            },
+            "size": { "field": "inefficiency", "type": "quantitative", "title": "Inefficiency (min)" },
+            "color": {
+              "field": "inefficiency",
+              "type": "quantitative",
+              "scale": { "scheme": "reds" },
+              "title": "Inefficiency (min)"
+            },
+            "tooltip": [
+              { "field": "city_clean", "title": "City" },
+              { "field": "mins_per_10km", "title": "Avg min / 10 km" },
+              { "field": "rush", "title": "Rush round trip (min)" },
+              { "field": "inefficiency", "title": "Inefficiency (min)" }
+            ]
+          }
+        },
+        {
+          "transform": [ { "regression": "rush", "on": "mins_per_10km" } ],
+          "mark": { "type": "line", "color": "#1f77b4" },
+          "encoding": {
+            "x": { "field": "mins_per_10km", "type": "quantitative" },
+            "y": { "field": "rush", "type": "quantitative" }
+          }
+        }
+      ],
+      "title": {
+        "text": "Correlation between Congestion and Commute Duration",
+        "anchor": "start",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      }
+    }
+  ],
+
+  "config": {
+    "font": "Inter, Segoe UI, Arial, sans-serif",
+    "title": {
+      "font": "Georgia, 'Times New Roman', serif",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "anchor": "start",
+      "color": "#1e1e1e"
+    },
+    "axis": { "labelColor": "#1e1e1e", "titleColor": "#1e1e1e" },
+    "legend": { "labelColor": "#1e1e1e", "titleColor": "#1e1e1e" }
+  },
+
+  "title": {
+    "text": "Congestion and Commute Efficiency in Malaysian Cities",
+    "subtitle": "Left: which cities experience the worst inefficiency | Right: correlation between congestion and travel time"
+  }
+}
