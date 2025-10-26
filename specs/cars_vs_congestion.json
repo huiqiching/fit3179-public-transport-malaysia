@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 450,
+
+  "data": {
+    "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/cars_totals.csv",
+    "format": {"type": "csv"}
+  },
+
+  "transform": [
+    {"filter": "datum['2024'] != null"},
+    {
+      "lookup": "state",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/traffic%20congestion%20index%20(with%20state).csv",
+          "format": {"type": "csv"}
+        },
+        "key": "state",
+        "fields": ["avg_travel_time_per_10km_min"]
+      }
+    }
+  ],
+
+  "mark": {"type": "circle", "filled": true, "opacity": 0.8},
+
+  "encoding": {
+    "x": {
+      "field": "2024",
+      "type": "quantitative",
+      "title": "Total Registered Vehicles (2024)",
+      "scale": {"zero": false}
+    },
+    "y": {
+      "field": "avg_travel_time_per_10km_min",
+      "type": "quantitative",
+      "title": "Average Minutes per 10 km (Congestion Level)",
+      "scale": {"zero": false}
+    },
+    "size": {
+      "field": "2024",
+      "type": "quantitative",
+      "title": "Vehicle Count",
+      "scale": {"range": [30, 600]}
+    },
+    "color": {
+      "field": "avg_travel_time_per_10km_min",
+      "type": "quantitative",
+      "scale": {"scheme": "reds"},
+      "title": "Congestion (min per 10 km)"
+    },
+    "tooltip": [
+      {"field": "state", "title": "State"},
+      {"field": "2024", "title": "Vehicles (2024)"},
+      {"field": "avg_travel_time_per_10km_min", "title": "Avg Travel Time (min/10km)"}
+    ]
+  },
+
+  "title": {
+    "text": "More Cars = More Congestion?",
+    "subtitle": "Comparing 2024 vehicle ownership and average travel time per 10 km by state",
+    "fontSize": 18,
+    "anchor": "start"
+  },
+
+  "config": {
+    "font": "Inter, Segoe UI, Arial, sans-serif",
+    "title": {
+      "font": "Georgia, 'Times New Roman', serif",
+      "color": "#1e1e1e"
+    },
+    "axis": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"},
+    "legend": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"}
+  }
+}

@@ -24,24 +24,62 @@
             Can Malaysians Get Around Efficiently?
         </h1>
         <p class="subtitle">
-            A data story on Malaysia's car dependence, public transport, and congestion (2022-2025)
+            An interactive exploration of Malaysia's growing car ownership, evolving public transport ridership, and the resulting congestion patterns across cities and states. 
         </p>
 
         <!-- Continers for each visualisation-->
-         <h2>Car Ownership by State</h2>
+         <h2>Malaysia's Growing Car Dependence</h2>
          <div id="chart1"></div>
+         <p>
+            Each year, more Malaysians are registering private vehicles — particularly in densely populated states such as Selangor, Johor, and Kuala Lumpur. The map highlights steady growth from 2022 to 2025, reflecting car dependence as economic development and affordability improve. 
+         </p>
 
-         <h2>Public Transport Network Coverage</h2>
+         <h2>Public Transport Usage Over Time</h2>
          <div id="chart2"></div>
+         <p>
+            Ridership data from Malaysia's major transport modes (LRT, MRT, Monorail, Komuter, Bus, and Intercity rail) shows how transit demand has evolved since 2022.
+         </p>
+         <p>
+            The LRT remains the most-used system, while MRT ridership shows the fastest growth, coinciding with new line openings and service expansions. Bus usage has been stable with mild fluctuations, indicating reliance in suburban areas but slower growth relative to rail. Despite overall improvement, Malaysia's total public transport ridership still trails car ownership growth, suggesting that infrastructure improvements alone may not shift commuting habits without behavioural and policy incentives. 
+         </p>
 
-         <h2>Traffic Congestion Hotspots</h2>
+         <h2>Congestion and Commute Efficiency</h2>
          <div id="chart3"></div>
+         <p>
+            This comparison reveals where commuters lose the most time during rush hour and how average travel time rises with congestion intensity. 
+         </p>
+         <p>
+            Cities such as George Town, Kota Bharu, and Johor Bahru show the largest efficiency gaps — the difference between optimal and rush-hour travel times. These hotspots suffer from road bottlenecks and limited transit alternatives. 
+         </p>
+         <p>
+            The scatter plot (right) confirms a clear correlation between congestion (minutes per 10 km) and total daily commute duration. As congestion worsens, travel time escalates sharply, illustrating how infrastructure strain directly impacts mobility efficiency. 
+         </p>
 
-         <h2>Ridership Trends</h2>
+         <h2>More Cars = More Congestion?</h2>
          <div id="chart4"></div>
+         <p>
+            Each bubble represents a Malaysian state. The horizontal axis shows total registered vehicles in 2024, while the vertical axis reflects average travel time per 10 km. 
+         </p>
+         <p>
+            A mild but positive correlation emerges: states with higher car ownership tend to face longer travel times. 
+         </p>
+         <p>
+            Kuala Lumpur has the highest vehicle count yet manages moderate congestion, suggesting efficient road networks and multiple transit options. 
+         </p>
+         <p>
+            Penang and Johor, by contrast, show high congestion with fewer cars, implying capacity issues and cross-border travel pressure. 
+         </p>
+         <p>
+            Overall, the data indicates that car volume contributes to congestion, but urban planning quality and transit alternatives determine its severity. 
+         </p>
 
-         <h2>Do More Cars Mean More Congestion?</h2>
-         <div id="chart5"></div>
+         <h2>Conclusion</h2>
+         <p>
+            Malaysia's transport story reflects a dual-speed reality: car ownership continues to rise faster than public transport adoption, driving persistent congestion in urban corridors. While major rail systems have boosted mobility, they have yet to fully offset private-car dependence. 
+         </p>
+         <p>
+            The findings emphasise the need for integrated multimodal planning, combining efficient mass transit, last-mile connectivity, and travel demand management, to reduce urban congestion and support sustainable growth. 
+         </p>
 
          <footer>
             <p>
@@ -52,10 +90,9 @@
         <script>
             const specs = [
                 ["#chart1", "specs/cars_map.json"],
-                ["#chart2", "specs/"],
-                ["#chart3", "specs/"],
-                ["#chart4", "specs/"],
-                ["#chart5", "specs/"]
+                ["#chart2", "specs/ridership_trends.json"],
+                ["#chart3", "specs/congestion_commute_eff.json"],
+                ["#chart4", "specs/cars_vs_congestion.json"]
             ];
             specs.forEach(([sel, path]) => {
                 vegaEmbed(sel, path, { actions: false })
