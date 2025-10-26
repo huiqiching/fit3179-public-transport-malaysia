@@ -38,15 +38,17 @@ h2 {
 }
 
 #chart1, #chart2, #chart3, #chart4 {
-    display: block;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: 30px auto;
-    width: min(1100px, 92vw);
+    width: 100%;
 }
 
-.vega-embed {
+.vega-embed, .vega-embed > * {
     margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: center;
 }
