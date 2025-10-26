@@ -73,7 +73,7 @@
   "config": {
     "font": "Inter, Segoe UI, Arial, sans-serif",
     "title": {
-      "font": "Georgia, 'Times New Roman', serif",
+      "font": "'Times New Roman', serif",
       "fontSize": 18, "fontWeight": "bold", "anchor": "start", "color": "#1e1e1e"
     },
     "axis": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"},

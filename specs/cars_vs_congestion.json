@@ -67,7 +67,7 @@
   "config": {
     "font": "Inter, Segoe UI, Arial, sans-serif",
     "title": {
-      "font": "Georgia, 'Times New Roman', serif",
+      "font": "'Times New Roman', serif",
       "color": "#1e1e1e"
     },
     "axis": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"},

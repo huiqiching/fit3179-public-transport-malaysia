@@ -52,7 +52,7 @@
     "font": "Inter, Segoe UI, Arial, sans-serif",
     "title": {
       "font": "'Times New Roman', serif",
-      "fontSize": 22,
+      "fontSize": 18,
       "fontWeight": "bold",
       "anchor": "start",
       "color": "#1e1e1e"
