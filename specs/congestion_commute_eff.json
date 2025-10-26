@@ -1,16 +1,20 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 
+  "width": "container",
+  "height": 520,
+  "autosize": { "type": "fit", "contains": "padding" },
+  "background": null,
+  "config": {
+      "view": { "stroke": null }
+  },
+  "spacing": 20,
+
   "hconcat": [
 
     {
-      "width": "container",
+      "width": "520",
       "height": 520,
-      "autosize": { "type": "fit", "contains": "padding" },
-      "background": null,
-      "config": {
-        "view": { "stroke": null }
-      },
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
         "format": { "type": "csv" }
@@ -74,13 +78,8 @@
     },
 
     {
-      "width": "container",
+      "width": "520",
       "height": 520,
-      "autosize": { "type": "fit", "contains": "padding" },
-      "background": null,
-      "config": {
-        "view": { "stroke": null }
-      },
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
         "format": { "type": "csv" }
