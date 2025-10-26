@@ -12,7 +12,7 @@
   "hconcat": [
 
     {
-      "width": "520",
+      "width": 520,
       "height": 520,
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
@@ -77,7 +77,7 @@
     },
 
     {
-      "width": "520",
+      "width": 520,
       "height": 520,
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
