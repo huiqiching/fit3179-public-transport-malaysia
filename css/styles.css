@@ -38,11 +38,11 @@ h2 {
 }
 
 #chart1, #chart2, #chart3, #chart4 {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     margin: 30px auto;
-    max-width: 900px;
+    width: min(1100px, 92vw);
 }
 
 .vega-embed {
