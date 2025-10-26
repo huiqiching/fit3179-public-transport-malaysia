@@ -4,8 +4,13 @@
   "hconcat": [
 
     {
-      "width": 440,
-      "height": 360,
+      "width": "container",
+      "height": 520,
+      "autosize": { "type": "fit", "contains": "padding" },
+      "background": null,
+      "config": {
+        "view": { "stroke": null }
+      },
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
         "format": { "type": "csv" }
@@ -69,8 +74,13 @@
     },
 
     {
-      "width": 460,
-      "height": 360,
+      "width": "container",
+      "height": 520,
+      "autosize": { "type": "fit", "contains": "padding" },
+      "background": null,
+      "config": {
+        "view": { "stroke": null }
+      },
       "data": {
         "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/main/data/traffic%20congestion%20index.csv",
         "format": { "type": "csv" }

@@ -1,7 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 450,
+  "width": "container",
+  "height": 520,
+  "autosize": { "type": "fit", "contains": "padding" },
+  "background": null,
+  "config": {
+      "view": { "stroke": null }
+  },
 
   "data": {
     "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/cars_totals.csv",
