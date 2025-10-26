@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 360,
+  "data": { "url": "https://raw.githubusercontent.com/huiqiching/fit3179-public-transport-malaysia/refs/heads/main/data/riderships.csv" },
+
+  "params": [
+    {
+      "name": "Mode",
+      "value": ["Bus","MRT","LRT","Monorail","Komuter","ETS/Intercity","Shuttle Tebrau"],
+      "bind": {
+        "input": "select",
+        "options": [
+          ["Bus","MRT","LRT","Monorail","Komuter","ETS/Intercity","Shuttle Tebrau"],
+          ["Bus"], ["MRT"], ["LRT"], ["Monorail"], ["Komuter"], ["ETS/Intercity"], ["Shuttle Tebrau"]
+        ],
+        "labels": ["All","Bus","MRT","LRT","Monorail","Komuter","ETS/Intercity","Tebrau"]
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "fold": [
+        "bus_rkl","bus_rkn","bus_rpn",
+        "rail_lrt_ampang","rail_lrt_kj",
+        "rail_mrt_kajang","rail_mrt_pjy",
+        "rail_monorail",
+        "rail_komuter","rail_komuter_utara",
+        "rail_ets","rail_intercity","rail_tebrau"
+      ],
+      "as": ["key","value"]
+    },
+    { "calculate": "toDate(datum.date)", "as": "_date" },
+
+    {
+      "calculate": "indexof(datum.key,'bus_')==0 ? 'Bus' : indexof(datum.key,'rail_mrt_')==0 ? 'MRT' : indexof(datum.key,'rail_lrt_')==0 ? 'LRT' : datum.key=='rail_monorail' ? 'Monorail' : (datum.key=='rail_komuter'||datum.key=='rail_komuter_utara') ? 'Komuter' : (datum.key=='rail_ets'||datum.key=='rail_intercity') ? 'ETS/Intercity' : (datum.key=='rail_tebrau' ? 'Shuttle Tebrau' : 'Other')",
+      "as": "mode"
+    },
+
+    { "filter": "indexof(Mode, datum.mode) >= 0" },
+
+    {
+      "timeUnit": "yearmonth",
+      "field": "_date",
+      "as": "ym"
+    },
+
+    {
+      "aggregate": [{ "op": "sum", "field": "value", "as": "ridership" }],
+      "groupby": ["ym","mode"]
+    }
+  ],
+
+  "mark": {"type": "line", "point": true},
+  "encoding": {
+    "x": {"field": "ym", "type": "temporal", "title": null},
+    "y": {"field": "ridership", "type": "quantitative", "title": "Monthly ridership"},
+    "color": {
+      "field": "mode", "type": "nominal", "title": "Mode",
+      "scale": {
+        "domain": ["Bus","MRT","LRT","Monorail","Komuter","ETS/Intercity","Shuttle Tebrau"],
+        "range":  ["#2ca02c","#1f77b4","#9467bd","#8c564b","#17becf","#ff7f0e","#d62728"]
+      }
+    },
+    "tooltip": [
+      {"field":"ym","type":"temporal","title":"Month"},
+      {"field":"mode","title":"Mode"},
+      {"field":"ridership","title":"Ridership","format":","}
+    ]
+  },
+
+  "config": {
+    "font": "Inter, Segoe UI, Arial, sans-serif",
+    "title": {
+      "font": "Georgia, 'Times New Roman', serif",
+      "fontSize": 18, "fontWeight": "bold", "anchor": "start", "color": "#1e1e1e"
+    },
+    "axis": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"},
+    "legend": {"labelColor": "#1e1e1e", "titleColor": "#1e1e1e"}
+  },
+
+  "title": {"text": "Public Transport Usage From 2022 to 2025", "subtitle": "Monthly totals by mode; use dropdown to filter"}
+}
